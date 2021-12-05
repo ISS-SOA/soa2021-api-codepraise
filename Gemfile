@@ -5,10 +5,12 @@ ruby File.read('.ruby-version').strip
 
 # CONFIGURATION
 gem 'figaro', '~> 1.2'
+gem 'rack-test' # for testing and can also be used to diagnose in production
 gem 'rake', '~> 13.0'
 
 # PRESENTATION LAYER
-gem 'slim', '~> 4.1'
+gem 'multi_json', '~> 1.15'
+gem 'roar', '~> 1.1'
 
 # APPLICATION LAYER
 # Web application related
@@ -50,11 +52,6 @@ group :test do
   gem 'simplecov', '~> 0'
   gem 'vcr', '~> 6.0'
   gem 'webmock', '~> 3.0'
-
-  gem 'headless', '~> 2.3'
-  gem 'page-object', '~> 2.3'
-  gem 'watir', '~> 7.0'
-  gem 'webdrivers', '~> 5.0'
 end
 
 group :development do
