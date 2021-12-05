@@ -174,7 +174,7 @@ DEPENDENCIES
   http (~> 5.0)
   minitest (~> 5.0)
   minitest-rg (~> 5.0)
-  multi_json
+  multi_json (~> 1.15)
   pg (~> 1.2)
   pry
   puma (~> 5.5)
@@ -183,7 +183,7 @@ DEPENDENCIES
   rake (~> 13.0)
   reek
   rerun (~> 0)
-  roar
+  roar (~> 1.1)
   roda (~> 3.49)
   rubocop
   sequel (~> 5.49)
