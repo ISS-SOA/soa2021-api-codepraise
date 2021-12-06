@@ -188,11 +188,11 @@ DEPENDENCIES
   pry
   puma (~> 5.5)
   rack (~> 2)
-  rack-cache
+  rack-cache (~> 1.13)
   rack-test
   rake (~> 13.0)
-  redis
-  redis-rack-cache
+  redis (~> 4.5)
+  redis-rack-cache (~> 2.2)
   reek
   rerun (~> 0)
   roar (~> 1.1)
