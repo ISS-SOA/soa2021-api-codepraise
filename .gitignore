@@ -4,3 +4,4 @@ coverage/*
 !coverage/.resultset.json
 *.db
 _snippets/
+_cache/
