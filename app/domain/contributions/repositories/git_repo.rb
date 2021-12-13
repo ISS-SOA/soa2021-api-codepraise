@@ -12,7 +12,7 @@ module CodePraise
     def initialize(project, config = CodePraise::App.config)
       @project = project
       remote = Git::RemoteGitRepo.new(@project.http_url)
-      @local = Git::LocalGitRepo.new(remote, config.REPOSTORE_PATH)
+      @local = Git::LocalGitRepo.new(remote)
     end
 
     def local
