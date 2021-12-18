@@ -19,7 +19,7 @@ describe 'Test Git Commands Mapper and Gateway' do
       .create(gh_project)
 
     @gitrepo = CodePraise::GitRepo.new(project)
-    @gitrepo.clone! unless @gitrepo.exists_locally?
+    @gitrepo.clone unless @gitrepo.exists_locally?
   end
 
   after do
