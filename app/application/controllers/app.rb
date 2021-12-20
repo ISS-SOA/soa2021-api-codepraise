@@ -33,11 +33,17 @@ module CodePraise
             routing.get do
               response.cache_control public: true, max_age: 300
 
+              request_id = [request.env, request.path, Time.now.to_f].hash
+
               path_request = Request::ProjectPath.new(
                 owner_name, project_name, request
               )
 
-              result = Service::AppraiseProject.new.call(requested: path_request)
+              result = Service::AppraiseProject.new.call(
+                requested: path_request,
+                request_id: request_id,
+                config: App.config
+              )
 
               if result.failure?
                 failed = Representer::HttpResponse.new(result.failure)
