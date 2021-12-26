@@ -24,7 +24,7 @@ module CodePraise
       collection :contributors, extend: Representer::Member, class: OpenStruct
 
       link :self do
-        "#{App.config.API_HOST}/api/v1/projects/#{project_name}/#{owner_name}"
+        "#{ENV['API_HOST']}/api/v1/projects/#{project_name}/#{owner_name}"
       end
 
       private
