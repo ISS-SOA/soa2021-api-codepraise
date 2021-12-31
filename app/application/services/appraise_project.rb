@@ -49,13 +49,14 @@ module CodePraise
       def request_cloning_worker(input)
         return Success(input) if input[:gitrepo].exists_locally?
 
-        Messaging::Queue.new(App.config.CLONE_QUEUE_URL, App.config)
-          .send(clone_request_json(input))
+        # Messaging::Queue.new(App.config.CLONE_QUEUE_URL, App.config)
+        #   .send(clone_request_json(input))
+        notify_clone_workers(input)
 
-          Failure(Response::ApiResult.new(
-            status: :processing,
-            message: { request_id: input[:request_id], msg: PROCESSING_MSG }
-          ))
+        Failure(Response::ApiResult.new(
+          status: :processing,
+          message: { request_id: input[:request_id], msg: PROCESSING_MSG }
+        ))
       rescue StandardError => e
         print_error(e)
         Failure(Response::ApiResult.new(status: :internal_error, message: CLONE_ERR))
@@ -83,6 +84,17 @@ module CodePraise
         Response::CloneRequest.new(input[:project], input[:request_id])
           .then { Representer::CloneRequest.new(_1) }
           .then(&:to_json)
+      end
+
+      def notify_clone_workers(input)
+        queues = [App.config.CLONE_QUEUE_URL, App.config.REPORT_QUEUE_URL]
+
+        queues.each do |queue_url|
+          Concurrent::Promise.execute do
+            Messaging::Queue.new(queue_url, App.config)
+              .send(clone_request_json(input))
+          end
+        end
       end
     end
   end
